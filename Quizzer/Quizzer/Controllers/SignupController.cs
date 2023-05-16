@@ -10,13 +10,11 @@ public class SignupController : Controller
 {
     private readonly IUserRepository _userRepository;
     private readonly IScryptEncoder _encoder;
-    private readonly QuizzerContext _db;
 
-    public SignupController(IUserRepository userRepository, IScryptEncoder encoder, QuizzerContext db)
+    public SignupController(IUserRepository userRepository, IScryptEncoder encoder)
     {
         _userRepository = userRepository;
         _encoder = encoder;
-        _db = db;
     }
 
     [HttpPost("Signup")]
@@ -45,8 +43,7 @@ public class SignupController : Controller
                 Password = hashedPassword
             };
 
-            _db.User.Add(newUser);
-            _db.SaveChanges();
+            _userRepository.Add(newUser);
 
             return Ok();
         }

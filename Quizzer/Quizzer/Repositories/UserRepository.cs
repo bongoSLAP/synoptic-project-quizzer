@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Quizzer.Data;
+﻿using Quizzer.Data;
 using Quizzer.Interfaces;
 using Quizzer.Models.Entities;
 
@@ -19,5 +18,11 @@ public class UserRepository : IUserRepository
         return _db.User.FirstOrDefault(u =>
             username != null && u.Username != null && u.Username.ToLower() == username.ToLower()
         );
+    }
+    
+    public void Add(User user)
+    {
+        _db.User.Add(user);
+        _db.SaveChanges();
     }
 }

@@ -5,5 +5,6 @@ namespace Quizzer.Interfaces;
 
 public interface IUserRepository
 {
-    public User? GetByUsername(string? username);
+    User? GetByUsername(string? username);
+    void Add(User user);
 }
