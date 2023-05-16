@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Quizzer.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+var connectionString = builder.Configuration.GetConnectionString(name: "QuizzerContext");
+
+builder.Services.AddDbContext<QuizzerContext>(options =>
+{
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 var app = builder.Build();
 
