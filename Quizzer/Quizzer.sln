@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quizzer", "Quizzer\Quizzer.csproj", "{4733AD2D-248F-4502-AA86-7B42F15F2803}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quizzer.Testing", "Quizzer.Testing\Quizzer.Testing.csproj", "{F495C116-9950-4FEE-9EB3-33371CD44A93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4733AD2D-248F-4502-AA86-7B42F15F2803}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4733AD2D-248F-4502-AA86-7B42F15F2803}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4733AD2D-248F-4502-AA86-7B42F15F2803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F495C116-9950-4FEE-9EB3-33371CD44A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F495C116-9950-4FEE-9EB3-33371CD44A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F495C116-9950-4FEE-9EB3-33371CD44A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F495C116-9950-4FEE-9EB3-33371CD44A93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
