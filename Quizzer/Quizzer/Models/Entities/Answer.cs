@@ -12,6 +12,8 @@ public class Answer : IdBase
     [Column(TypeName = "int")]
     [Required(ErrorMessage = "Index field is required.")]
     public int Index { get; set; } 
+    [Required(ErrorMessage = "IsCorrect field is required.")]
+    public bool IsCorrect { get; set; }
     public Guid QuestionId { get; set; } = Guid.Empty;
     public virtual Question? Question { get; set; } 
 }
