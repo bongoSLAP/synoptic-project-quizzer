@@ -2,7 +2,7 @@
 
 public enum Role
 {
-    HeadOfDepartment,
-    Teacher,
-    Student
+    HeadOfDepartment = 0,
+    Teacher = 1,
+    Student = 2
 }
