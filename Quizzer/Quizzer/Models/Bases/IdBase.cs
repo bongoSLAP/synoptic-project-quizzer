@@ -8,6 +8,6 @@ namespace Quizzer.Models.Bases
         [Key]
         [Column(TypeName = "nvarchar(36)")]
         [Required(ErrorMessage = "Id field is required.")]
-        public string? Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
     }
 }
