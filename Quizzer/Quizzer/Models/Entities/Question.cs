@@ -11,7 +11,7 @@ public class Question : IdBase
     public string Text { get; set; } = string.Empty;
     [Column(TypeName = "int")]
     [Required(ErrorMessage = "Index field is required.")]
-    public int Index { get; set; }
+    public int QuestionIndex { get; set; }
     public Guid QuizId { get; set; } = Guid.Empty;
     public virtual Quiz? Quiz { get; set; }
     public virtual ICollection<Answer>? Answers { get; set; }

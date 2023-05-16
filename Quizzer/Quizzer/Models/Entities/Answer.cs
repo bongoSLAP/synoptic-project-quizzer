@@ -11,7 +11,7 @@ public class Answer : IdBase
     public string Text { get; set; } = string.Empty;
     [Column(TypeName = "int")]
     [Required(ErrorMessage = "Index field is required.")]
-    public int Index { get; set; } 
+    public int AnswerIndex { get; set; } 
     [Required(ErrorMessage = "IsCorrect field is required.")]
     public bool IsCorrect { get; set; }
     public Guid QuestionId { get; set; } = Guid.Empty;
