@@ -10,7 +10,7 @@ public class Question : IdBase
     [Required(ErrorMessage = "Question Text field is required.")]
     public string Text { get; set; } = string.Empty;
     [Column(TypeName = "int")]
-    [Required(ErrorMessage = "Index field is required.")]
+    [Required(ErrorMessage = "Answer Index field is required.")]
     public int QuestionIndex { get; set; }
     public Guid QuizId { get; set; } = Guid.Empty;
     public virtual Quiz? Quiz { get; set; }

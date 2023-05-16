@@ -10,7 +10,7 @@ public class Answer : IdBase
     [Required(ErrorMessage = "Answer Text field is required.")]
     public string Text { get; set; } = string.Empty;
     [Column(TypeName = "int")]
-    [Required(ErrorMessage = "Index field is required.")]
+    [Required(ErrorMessage = "Answer Index field is required.")]
     public int AnswerIndex { get; set; } 
     [Required(ErrorMessage = "IsCorrect field is required.")]
     public bool IsCorrect { get; set; }
