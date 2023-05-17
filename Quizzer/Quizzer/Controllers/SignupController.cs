@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Quizzer.Data;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Quizzer.Interfaces;
 using Quizzer.Models.Entities;
-using Quizzer.Models.Enums;
 
 namespace Quizzer.Controllers;
 
@@ -17,6 +16,7 @@ public class SignupController : Controller
         _encoder = encoder;
     }
 
+    [AllowAnonymous]
     [HttpPost("Signup")]
     public IActionResult Create([FromBody] User? user)
     {

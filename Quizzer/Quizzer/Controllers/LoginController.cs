@@ -21,13 +21,13 @@ public class LoginController : Controller
         try
         {
             var user = _loginHandler.Authenticate(userLogin);
-            if (user != null)
-            {
-                var token = _loginHandler.Generate(user);
-                return Ok(token);
-            }
+            
+            if (user == null) 
+                return Unauthorized();
+            
+            var token = _loginHandler.Generate(user);
+            return Ok(token);
 
-            return Unauthorized();
         }
         catch (Exception ex)
         {
