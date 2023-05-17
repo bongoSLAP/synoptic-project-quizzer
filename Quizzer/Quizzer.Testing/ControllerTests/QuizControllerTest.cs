@@ -15,7 +15,6 @@ public class QuizControllerTest
 {
     private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly Mock<IQuizHandler> _quizHandlerMock;
-    private readonly Mock<HttpContext> _httpContextMock;
     private readonly QuizController _controller;
     private readonly User _user;
 
@@ -23,7 +22,6 @@ public class QuizControllerTest
     {
         _userRepositoryMock = new Mock<IUserRepository>();
         _quizHandlerMock = new Mock<IQuizHandler>();
-        _httpContextMock = new Mock<HttpContext>();
         _controller = new QuizController(_userRepositoryMock.Object, _quizHandlerMock.Object);
         _user = new User {
             Id = Guid.NewGuid(), 
@@ -35,12 +33,12 @@ public class QuizControllerTest
             Password = "hashedPassword"
         };
         
-        _httpContextMock.SetupGet(context => context.User).Returns(new ClaimsPrincipal());
+        var httpContextMock = new Mock<HttpContext>();
+        httpContextMock.SetupGet(context => context.User).Returns(new ClaimsPrincipal());
         _controller.ControllerContext = new ControllerContext
         {
-            HttpContext = _httpContextMock.Object
+            HttpContext = httpContextMock.Object
         };
-
     }
 
     private IEnumerable<QuizInfo> GetDummyQuiz()

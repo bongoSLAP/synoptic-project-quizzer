@@ -51,7 +51,7 @@ namespace Quizzer.Testing.ControllerTests
             };
             
             _mockUserRepository.Setup(r => r.GetByUsername(_userLogin.Username)).Returns(user);
-            _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Key")]).Returns("vaOFjM01gSMVwKjrzfT8ofAypG9cQi77uVl161ow"); //figure out how to hide this when conn string etc is hidden
+            _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Key")]).Returns("vaOFjM01gSMVwKjrzfT8ofAypG9cQi77uVl161ow");
             _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Issuer")]).Returns("https://localhost:7173/");
             _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Audience")]).Returns("https://localhost:7173/");
             _mockScryptEncoder.Setup(encoder => encoder.Compare(_userLogin.Password, "hashedPassword")).Returns(true);
