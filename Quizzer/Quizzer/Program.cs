@@ -21,10 +21,10 @@ builder.Services.AddTransient<IQuizRepository, QuizRepository>();
 builder.Services.AddSingleton<ScryptEncoder, ScryptEncoder>();
 builder.Services.AddSingleton<IScryptEncoder, ScryptEncoderWrapper>();
 
-builder.Services.AddControllers()                
-    .AddJsonOptions(jo =>
+builder.Services.AddControllers();         
+    /*.AddJsonOptions(jo =>
     jo.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
-);
+);*/
 
 var connectionString = builder.Configuration.GetConnectionString(name: "QuizzerContext");
 

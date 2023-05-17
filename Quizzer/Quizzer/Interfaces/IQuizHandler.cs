@@ -1,9 +1,9 @@
-﻿using Quizzer.Models.Entities;
+﻿using Quizzer.Models.Entities.Info;
 using Quizzer.Models.Enums;
 
 namespace Quizzer.Interfaces;
 
 public interface IQuizHandler
 {
-    IEnumerable<Quiz> List(Role role);
+    IEnumerable<QuizInfo> List(Role role);
 }
