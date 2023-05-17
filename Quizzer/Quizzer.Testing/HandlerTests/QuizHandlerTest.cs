@@ -20,7 +20,7 @@ public class QuizHandlerTest
     
     private List<Quiz> GetDummyQuiz()
     {
-        var quizzes = new List<Quiz>
+        return new List<Quiz>
         {
             new Quiz
             {
@@ -28,8 +28,6 @@ public class QuizHandlerTest
                 Description = "Quiz Description"
             },
         };
-
-        return quizzes;
     }
     
     [Fact]
