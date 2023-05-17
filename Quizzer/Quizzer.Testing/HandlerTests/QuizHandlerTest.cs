@@ -12,16 +12,13 @@ public class QuizHandlerTest
 {
     private readonly Mock<IQuizRepository> _quizRepositoryMock;
     private readonly QuizHandler _quizHandler;
+    private readonly List<Quiz> _quizzes;
     
     public QuizHandlerTest()
     {
         _quizRepositoryMock = new Mock<IQuizRepository>();
         _quizHandler = new QuizHandler(_quizRepositoryMock.Object);
-    }
-    
-    private List<Quiz> GetDummyQuiz()
-    {
-        return new List<Quiz>
+        _quizzes = new List<Quiz>
         {
             new Quiz
             {
@@ -35,7 +32,7 @@ public class QuizHandlerTest
     public void List_QuizzesExist_ReturnsMappedQuiz()
     {
         // Arrange
-        _quizRepositoryMock.Setup(repo => repo.List()).Returns(GetDummyQuiz());
+        _quizRepositoryMock.Setup(repo => repo.List()).Returns(_quizzes);
         var role = Role.Restricted;
 
         // Act
@@ -51,7 +48,7 @@ public class QuizHandlerTest
     public void List_QuizzesExist_RestrictedRole_DoesNotCallIncludeMethod()
     {
         // Arrange
-        _quizRepositoryMock.Setup(repo => repo.List()).Returns(GetDummyQuiz());
+        _quizRepositoryMock.Setup(repo => repo.List()).Returns(_quizzes);
         var role = Role.Restricted;
 
         // Act
@@ -68,7 +65,7 @@ public class QuizHandlerTest
     public void List_QuizzesExist_NonRestrictedRole_CallsIncludeMethod(Role role)
     {
         // Arrange
-        _quizRepositoryMock.Setup(repo => repo.ListIncludeAnswers()).Returns(GetDummyQuiz());
+        _quizRepositoryMock.Setup(repo => repo.ListIncludeAnswers()).Returns(_quizzes);
 
         // Act
         _quizHandler.List(role);
