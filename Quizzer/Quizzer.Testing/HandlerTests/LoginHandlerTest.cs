@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Quizzer.Testing.HandlerTests
 {
-    public class LoginHandlerUnitTest
+    public class LoginHandlerTest
     {
         private readonly IJwtTokenTestHelper _tokenHelper;
         private readonly LoginHandler _loginHandler;
@@ -21,7 +21,7 @@ namespace Quizzer.Testing.HandlerTests
 
         private readonly string _hashedPassword;
 
-        public LoginHandlerUnitTest()
+        public LoginHandlerTest()
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var config = new ConfigurationBuilder()

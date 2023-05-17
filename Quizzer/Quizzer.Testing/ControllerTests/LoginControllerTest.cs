@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Quizzer.Testing.ControllerTests
 {
-    public class LoginControllerIntegrationTest
+    public class LoginControllerTest
     {
         private readonly Mock<IUserRepository> _mockUserRepository;
         private readonly Mock<IConfiguration> _mockConfiguration;
@@ -22,7 +22,7 @@ namespace Quizzer.Testing.ControllerTests
         private readonly UserLogin _userLogin;
         private readonly IJwtTokenTestHelper _tokenHelper;
 
-        public LoginControllerIntegrationTest()
+        public LoginControllerTest()
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockConfiguration = new Mock<IConfiguration>();
