@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Quizzer.Models.Bases;
+using Quizzer.Models.Entities.Info;
 
 namespace Quizzer.Models.Entities;
 
@@ -11,5 +12,15 @@ public class Quiz : IdBase
     public string Title { get; set; } = string.Empty;
     [Column(TypeName = "nvarchar(255)")]
     public string? Description { get; set; }
-    public virtual ICollection<Question>? Questions { get; set; } 
+    public virtual ICollection<Question>? Questions { get; set; }
+
+    public QuizInfo Map()
+    {
+        return new QuizInfo()
+        {
+            Title = Title,
+            Description = Description,
+            Questions = Questions?.Select(q => q.Map()).ToList()
+        };
+    }
 }
