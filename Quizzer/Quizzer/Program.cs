@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -20,7 +21,10 @@ builder.Services.AddTransient<IQuizRepository, QuizRepository>();
 builder.Services.AddSingleton<ScryptEncoder, ScryptEncoder>();
 builder.Services.AddSingleton<IScryptEncoder, ScryptEncoderWrapper>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()                
+    .AddJsonOptions(jo =>
+    jo.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
+);
 
 var connectionString = builder.Configuration.GetConnectionString(name: "QuizzerContext");
 
