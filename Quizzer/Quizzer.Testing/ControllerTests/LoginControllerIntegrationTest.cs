@@ -45,7 +45,7 @@ namespace Quizzer.Testing.ControllerTests
                 FirstName = "Test",
                 LastName = "User",
                 Email = "testuser@example.com", 
-                Role = Role.Student, 
+                Role = Role.Restricted, 
                 Username = "testuser", 
                 Password = "hashedPassword"
             };

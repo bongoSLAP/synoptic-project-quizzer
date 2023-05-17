@@ -15,7 +15,7 @@ public class QuizHandler : IQuizHandler
     
     public IEnumerable<Quiz> List(Role role)
     {
-        var quizzes = role == Role.Student ? _quizRepository.List() : _quizRepository.ListIncludeAnswers();
+        var quizzes = role == Role.Restricted ? _quizRepository.List() : _quizRepository.ListIncludeAnswers();
         
         if (!quizzes.Any())
             throw new InvalidOperationException("No quizzes found");
