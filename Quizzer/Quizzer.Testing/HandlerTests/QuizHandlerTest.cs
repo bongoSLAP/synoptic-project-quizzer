@@ -2,6 +2,7 @@
 using Quizzer.Handlers;
 using Quizzer.Interfaces;
 using Quizzer.Models.Entities;
+using Quizzer.Models.Entities.Info;
 using Quizzer.Models.Enums;
 using Xunit;
 
@@ -31,7 +32,7 @@ public class QuizHandlerTest
     }
     
     [Fact]
-    public void List_QuizzesExist_ReturnsQuizInfos()
+    public void List_QuizzesExist_ReturnsMappedQuiz()
     {
         // Arrange
         _quizRepositoryMock.Setup(repo => repo.List()).Returns(GetDummyQuiz());
@@ -43,6 +44,7 @@ public class QuizHandlerTest
         // Assert
         Assert.NotNull(result);
         Assert.NotEmpty(result);
+        Assert.IsAssignableFrom<IEnumerable<QuizInfo>>(result);
     }
     
     [Fact]
