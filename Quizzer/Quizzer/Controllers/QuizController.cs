@@ -21,7 +21,7 @@ public class QuizController : Controller
         var user = _userRepository.GetByClaim(HttpContext.User);
 
         if (user == null)
-            return Unauthorized();
+            return Unauthorized("User unrecognised.");
 
         try
         {
