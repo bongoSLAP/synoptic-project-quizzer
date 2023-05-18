@@ -14,7 +14,6 @@ public class Answer : IdBase
     [Required(ErrorMessage = "Answer Index field is required.")]
     public int AnswerIndex { get; set; } 
     [Required(ErrorMessage = "IsCorrect field is required.")]
-    public bool IsCorrect { get; set; }
     public Guid QuestionId { get; set; } = Guid.Empty;
     public virtual Question? Question { get; set; }
 
@@ -25,7 +24,6 @@ public class Answer : IdBase
             Id = Id,
             Text = Text,
             AnswerIndex = AnswerIndex,
-            IsCorrect = IsCorrect,
         };
     }
 }
