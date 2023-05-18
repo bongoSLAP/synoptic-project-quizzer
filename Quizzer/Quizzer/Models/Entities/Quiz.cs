@@ -18,6 +18,7 @@ public class Quiz : IdBase
     {
         return new QuizInfo()
         {
+            Id = Id,
             Title = Title,
             Description = Description,
             Questions = Questions?.Select(q => q.Map()).ToList()

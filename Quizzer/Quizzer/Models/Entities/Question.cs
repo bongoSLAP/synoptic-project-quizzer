@@ -21,6 +21,7 @@ public class Question : IdBase
     {
         return new QuestionInfo()
         {
+            Id = Id,
             Text = Text,
             QuestionIndex = QuestionIndex,
             Answers = Answers?.Select(a => a.Map()).ToList()

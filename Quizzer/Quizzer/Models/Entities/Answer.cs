@@ -22,6 +22,7 @@ public class Answer : IdBase
     {
         return new AnswerInfo()
         {
+            Id = Id,
             Text = Text,
             AnswerIndex = AnswerIndex,
             IsCorrect = IsCorrect,
