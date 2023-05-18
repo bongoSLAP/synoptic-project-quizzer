@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Quizzer.Testing.ControllerTests
 {
-    public class SignupControllerIntegrationTest
+    public class SignupControllerTest
     {
         private readonly Mock<IUserRepository> _mockUserRepository;
         private readonly Mock<IScryptEncoder> _mockScryptEncoder;
         private readonly User _user;
 
-        public SignupControllerIntegrationTest()
+        public SignupControllerTest()
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockScryptEncoder = new Mock<IScryptEncoder>();
@@ -24,7 +24,7 @@ namespace Quizzer.Testing.ControllerTests
                 FirstName = "Test",
                 LastName = "User",
                 Email = "testuser@example.com", 
-                Role = Role.Student, 
+                Role = Role.Restricted, 
                 Username = "testuser", 
                 Password = "hashedPassword"
             };

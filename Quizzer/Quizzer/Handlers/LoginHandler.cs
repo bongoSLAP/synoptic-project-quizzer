@@ -38,7 +38,7 @@ public class LoginHandler : ILoginHandler
             _config["Jwt:Issuer"],
             _config["Jwt:Audience"],
             claims,
-            expires: DateTime.UtcNow.AddMinutes(15),
+            expires: DateTime.UtcNow.AddMinutes(45),
             signingCredentials: credentials
             );
 

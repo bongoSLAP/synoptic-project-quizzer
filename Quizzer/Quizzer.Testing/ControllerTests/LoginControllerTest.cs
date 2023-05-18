@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Quizzer.Testing.ControllerTests
 {
-    public class LoginControllerIntegrationTest
+    public class LoginControllerTest
     {
         private readonly Mock<IUserRepository> _mockUserRepository;
         private readonly Mock<IConfiguration> _mockConfiguration;
@@ -22,7 +22,7 @@ namespace Quizzer.Testing.ControllerTests
         private readonly UserLogin _userLogin;
         private readonly IJwtTokenTestHelper _tokenHelper;
 
-        public LoginControllerIntegrationTest()
+        public LoginControllerTest()
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockConfiguration = new Mock<IConfiguration>();
@@ -45,13 +45,13 @@ namespace Quizzer.Testing.ControllerTests
                 FirstName = "Test",
                 LastName = "User",
                 Email = "testuser@example.com", 
-                Role = Role.Student, 
+                Role = Role.Restricted, 
                 Username = "testuser", 
                 Password = "hashedPassword"
             };
             
             _mockUserRepository.Setup(r => r.GetByUsername(_userLogin.Username)).Returns(user);
-            _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Key")]).Returns("vaOFjM01gSMVwKjrzfT8ofAypG9cQi77uVl161ow"); //figure out how to hide this when conn string etc is hidden
+            _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Key")]).Returns("vaOFjM01gSMVwKjrzfT8ofAypG9cQi77uVl161ow");
             _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Issuer")]).Returns("https://localhost:7173/");
             _mockConfiguration.SetupGet(x => x[It.Is<string>(s => s == "Jwt:Audience")]).Returns("https://localhost:7173/");
             _mockScryptEncoder.Setup(encoder => encoder.Compare(_userLogin.Password, "hashedPassword")).Returns(true);

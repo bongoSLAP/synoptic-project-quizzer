@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,13 +13,18 @@ using Scrypt;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<ILoginHandler, LoginHandler>();
+builder.Services.AddTransient<IQuizHandler, QuizHandler>();
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IQuizRepository, QuizRepository>();
 
 builder.Services.AddSingleton<ScryptEncoder, ScryptEncoder>();
 builder.Services.AddSingleton<IScryptEncoder, ScryptEncoderWrapper>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers();         
+    /*.AddJsonOptions(jo =>
+    jo.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
+);*/
 
 var connectionString = builder.Configuration.GetConnectionString(name: "QuizzerContext");
 
@@ -59,11 +65,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
-
 app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();

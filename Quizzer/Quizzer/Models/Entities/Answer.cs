@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Quizzer.Models.Bases;
+using Quizzer.Models.Entities.Info;
 
 namespace Quizzer.Models.Entities;
 
@@ -15,5 +16,15 @@ public class Answer : IdBase
     [Required(ErrorMessage = "IsCorrect field is required.")]
     public bool IsCorrect { get; set; }
     public Guid QuestionId { get; set; } = Guid.Empty;
-    public virtual Question? Question { get; set; } 
+    public virtual Question? Question { get; set; }
+
+    public AnswerInfo Map()
+    {
+        return new AnswerInfo()
+        {
+            Text = Text,
+            AnswerIndex = AnswerIndex,
+            IsCorrect = IsCorrect,
+        };
+    }
 }

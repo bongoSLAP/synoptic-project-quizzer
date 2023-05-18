@@ -2,7 +2,7 @@
 
 public enum Role
 {
-    HeadOfDepartment = 0,
-    Teacher = 1,
-    Student = 2
+    Edit = 0,
+    View = 1,
+    Restricted = 2
 }

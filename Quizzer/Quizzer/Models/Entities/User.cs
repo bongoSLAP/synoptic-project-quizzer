@@ -21,15 +21,12 @@ namespace Quizzer.Models.Entities
         [Required(ErrorMessage = "Role field is required.")]
         public Role Role { get; set; }
 
-        public UserInfo Map(User? user)
+        public UserInfo Map()
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user), "User object cannot be null.");
-            
             return new UserInfo {
-                Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName
+                Username = Username,
+                FirstName = FirstName,
+                LastName = LastName
             };
         }
     }

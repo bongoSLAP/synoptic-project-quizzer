@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Quizzer.Testing.HandlerTests
 {
-    public class LoginHandlerUnitTest
+    public class LoginHandlerTest
     {
         private readonly IJwtTokenTestHelper _tokenHelper;
         private readonly LoginHandler _loginHandler;
@@ -21,7 +21,7 @@ namespace Quizzer.Testing.HandlerTests
 
         private readonly string _hashedPassword;
 
-        public LoginHandlerUnitTest()
+        public LoginHandlerTest()
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var config = new ConfigurationBuilder()
@@ -37,7 +37,7 @@ namespace Quizzer.Testing.HandlerTests
                 FirstName = "Test",
                 LastName = "User",
                 Email = "testuser@example.com", 
-                Role = Role.Student, 
+                Role = Role.Restricted, 
                 Username = "testuser", 
                 Password = "password"
             };
@@ -47,7 +47,7 @@ namespace Quizzer.Testing.HandlerTests
                 FirstName = "Test",
                 LastName = "User",
                 Email = "testuser@example.com", 
-                Role = Role.Student, 
+                Role = Role.Restricted, 
                 Username = "testuser", 
                 Password = _hashedPassword
             };
