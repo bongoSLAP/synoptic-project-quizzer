@@ -1,21 +1,25 @@
-﻿using Moq;
+﻿using FluentValidation;
+using Moq;
 using Quizzer.Controllers;
 using Quizzer.Interfaces;
 using Quizzer.Models;
 using Quizzer.Models.Entities.Info;
 using Xunit;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Quizzer.Testing.ControllerTests;
 
 public class AnswerControllerTest
 {
     private readonly Mock<IAnswerHandler> _answerHandlerMock;
+    private readonly Mock<IValidator<AnswerInfo>> _validatorMock;
     private readonly AnswerController _answerController;
 
     public AnswerControllerTest()
     {
         _answerHandlerMock = new Mock<IAnswerHandler>();
-        _answerController = new AnswerController(_answerHandlerMock.Object);
+        _validatorMock = new Mock<IValidator<AnswerInfo>>();
+        _answerController = new AnswerController(_answerHandlerMock.Object, _validatorMock.Object);
     }
 
     [Fact]
@@ -24,9 +28,11 @@ public class AnswerControllerTest
         // Arrange
         var answerInfo = new AnswerInfo { Id = Guid.NewGuid(), Text = "Answer", AnswerIndex = 1 };
         var info = new AnswerAddInfo { AnswerInfo = answerInfo, QuestionId = Guid.NewGuid() };
-
+        _validatorMock.Setup(v => v.Validate(It.IsAny<AnswerInfo>()))
+            .Returns(new ValidationResult());
+        
         // Act
-        var result = _answerController.Add(info);
+        _answerController.Add(info);
 
         // Assert
         _answerHandlerMock.Verify(x => x.Add(answerInfo, info.QuestionId), Times.Once);
@@ -40,7 +46,7 @@ public class AnswerControllerTest
         var data = new GuidRequest { Id = id };
 
         // Act
-        var result = _answerController.Delete(data);
+        _answerController.Delete(data);
 
         // Assert
         _answerHandlerMock.Verify(x => x.Delete(id), Times.Once);
@@ -51,9 +57,11 @@ public class AnswerControllerTest
     {
         // Arrange
         var answerInfo = new AnswerInfo { Id = Guid.NewGuid(), Text = "Answer", AnswerIndex = 1 };
+        _validatorMock.Setup(v => v.Validate(It.IsAny<AnswerInfo>()))
+            .Returns(new ValidationResult());
 
         // Act
-        var result = _answerController.Edit(answerInfo);
+        _answerController.Edit(answerInfo);
 
         // Assert
         _answerHandlerMock.Verify(x => x.Edit(answerInfo), Times.Once);

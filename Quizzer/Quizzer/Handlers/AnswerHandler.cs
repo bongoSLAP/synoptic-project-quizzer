@@ -39,7 +39,7 @@ public class AnswerHandler : IAnswerHandler
         var answer = _answerRepository.GetById(answerId);
         var question = _questionRepository.GetById(answer.QuestionId);
 
-        if (question.Answers.Count >= 2)
+        if (question.Answers.Count <= 2)
             throw new InvalidOperationException("This question will not have enough answers if this answer is deleted.");
         
         _answerRepository.Delete(answerId);
@@ -50,10 +50,19 @@ public class AnswerHandler : IAnswerHandler
         var existingAnswer = _answerRepository.GetById(answerInfo.Id);
         existingAnswer.Text = answerInfo.Text;
         existingAnswer.AnswerIndex = answerInfo.AnswerIndex;
-
-        _answerRepository.Upsert(existingAnswer);
         
-        if (answerInfo.AnswerIndex != existingAnswer.AnswerIndex)
-            _answerRepository.ReindexAnswerNumbers(existingAnswer.Id);
+        var question = _questionRepository.GetById(existingAnswer.QuestionId);
+        
+        if (question.Answers.Any(a => a.AnswerIndex == answerInfo.AnswerIndex))
+        {
+            _answerRepository.ReindexAnswerNumbers(question.Id);
+            _answerRepository.Upsert(existingAnswer);
+            return;
+        }
+        
+        _answerRepository.Upsert(existingAnswer);
+
+        
+
     }
 }
