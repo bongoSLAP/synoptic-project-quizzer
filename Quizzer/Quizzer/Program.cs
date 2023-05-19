@@ -1,12 +1,15 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Quizzer.Data;
 using Quizzer.Handlers;
 using Quizzer.Interfaces;
+using Quizzer.Models.Entities.Info;
 using Quizzer.Repositories;
+using Quizzer.Validators;
 using Quizzer.Wrappers;
 using Scrypt;
 
@@ -21,6 +24,8 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IQuizRepository, QuizRepository>();
 builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
 builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
+
+builder.Services.AddTransient<IValidator<AnswerInfo>, AnswerInfoValidator>();
 
 builder.Services.AddSingleton<ScryptEncoder, ScryptEncoder>();
 builder.Services.AddSingleton<IScryptEncoder, ScryptEncoderWrapper>();

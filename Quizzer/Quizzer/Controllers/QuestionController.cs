@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quizzer.Interfaces;
 using Quizzer.Models;
 using Quizzer.Models.Entities.Info;
+using Quizzer.Validators;
 
 namespace Quizzer.Controllers;
 
@@ -10,15 +12,22 @@ namespace Quizzer.Controllers;
 public class QuestionController : Controller
 {
     private readonly IQuestionHandler _questionHandler;
-    public QuestionController(IQuestionHandler questionHandler)
+    private readonly IValidator<QuestionInfo> _validator;
+    public QuestionController(IQuestionHandler questionHandler, IValidator<QuestionInfo> validator)
     {
         _questionHandler = questionHandler;
+        _validator = validator;
     }
 
     [Authorize(Roles = "Edit")]
     [HttpPost("Add")]
     public IActionResult Add([FromBody] QuestionAddInfo info)
     {
+        var validationResult = _validator.Validate(info.QuestionInfo);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
         try
         {
             _questionHandler.Add(info.QuestionInfo, info.QuizId);
@@ -49,6 +58,11 @@ public class QuestionController : Controller
     [HttpPost("Edit")]
     public IActionResult Edit([FromBody] QuestionInfo info)
     {
+        var validationResult = _validator.Validate(info);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+        
         try
         {
             _questionHandler.Edit(info);
