@@ -9,17 +9,17 @@ namespace Quizzer.Testing.ControllerTests;
 
 public class AnswerControllerTest
 {
-    private readonly Mock<IAnswerHandler> _mockAnswerHandler;
+    private readonly Mock<IAnswerHandler> _answerHandlerMock;
     private readonly AnswerController _answerController;
 
     public AnswerControllerTest()
     {
-        _mockAnswerHandler = new Mock<IAnswerHandler>();
-        _answerController = new AnswerController(_mockAnswerHandler.Object);
+        _answerHandlerMock = new Mock<IAnswerHandler>();
+        _answerController = new AnswerController(_answerHandlerMock.Object);
     }
 
     [Fact]
-    public void Add_WhenCalled_CallsAddOnAnswerHandler()
+    public void Add_CallsAddOnAnswerHandler()
     {
         // Arrange
         var answerInfo = new AnswerInfo { Id = Guid.NewGuid(), Text = "Answer", AnswerIndex = 1 };
@@ -29,7 +29,7 @@ public class AnswerControllerTest
         var result = _answerController.Add(info);
 
         // Assert
-        _mockAnswerHandler.Verify(x => x.Add(answerInfo, info.QuestionId), Times.Once);
+        _answerHandlerMock.Verify(x => x.Add(answerInfo, info.QuestionId), Times.Once);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class AnswerControllerTest
         var result = _answerController.Delete(data);
 
         // Assert
-        _mockAnswerHandler.Verify(x => x.Delete(id), Times.Once);
+        _answerHandlerMock.Verify(x => x.Delete(id), Times.Once);
     }
 
     [Fact]
@@ -56,6 +56,6 @@ public class AnswerControllerTest
         var result = _answerController.Edit(answerInfo);
 
         // Assert
-        _mockAnswerHandler.Verify(x => x.Edit(answerInfo), Times.Once);
+        _answerHandlerMock.Verify(x => x.Edit(answerInfo), Times.Once);
     }
 }

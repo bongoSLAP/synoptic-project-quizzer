@@ -1,4 +1,5 @@
 ﻿using Quizzer.Interfaces;
+using Quizzer.Models.Entities;
 using Quizzer.Models.Entities.Info;
 
 namespace Quizzer.Handlers;
@@ -7,52 +8,72 @@ public class QuestionHandler : IQuestionHandler
 {
     private readonly IQuestionRepository _questionRepository;
     private readonly IQuizRepository _quizRepository;
+    private readonly IAnswerRepository _answerRepository;
 
-    public QuestionHandler(IQuestionRepository questionRepository, IQuizRepository quizRepository)
+    public QuestionHandler(IQuestionRepository questionRepository, IQuizRepository quizRepository, IAnswerRepository answerRepository)
     {
         _questionRepository = questionRepository;
         _quizRepository = quizRepository;
+        _answerRepository = answerRepository;
     }
 
-    public void Add(QuestionInfo question, Guid quizId)
+    public void Add(QuestionInfo questionInfo, Guid quizId)
     {
+        if (questionInfo.Answers.Count < 2)
+            throw new InvalidOperationException("A question requires 2 or more answers.");
+
         var quiz = _quizRepository.GetById(quizId);
 
-        if (quiz == null)
-            throw new ArgumentException("Quiz does not exist");
-
-        //_questionRepository.Add(question);
-        
-        if (quiz.Questions.Any(q => q.QuestionIndex == question.QuestionIndex))
+        var question = new Question()
         {
-            
-        }
-    }
+            Text = questionInfo.Text,
+            QuestionIndex = questionInfo.QuestionIndex,
+            QuizId = quizId,
+            Quiz = quiz
+        };
 
+        _questionRepository.Add(question);
+
+        foreach (var answerInfo in questionInfo.Answers)
+        {
+            var answer = new Answer()
+            {
+                Text = answerInfo.Text,
+                AnswerIndex = answerInfo.AnswerIndex,
+                QuestionId = question.Id,
+                Question = question
+            };
+
+            _answerRepository.Add(answer);
+        }
+
+        if (questionInfo.Answers.GroupBy(ai => ai.AnswerIndex).Any(g => g.Count() > 1))
+            _answerRepository.ReindexAnswerNumbers(question.Id);
+
+        if (quiz.Questions.Any(q => q.QuestionIndex == question.QuestionIndex))
+            _questionRepository.ReindexQuestionNumbers(quizId);
+    }
+    
     public void Delete(Guid questionId)
     {
+        var question = _questionRepository.GetById(questionId);
+        var quiz = _quizRepository.GetById(question.QuizId);
+
+        if (quiz.Questions.Count >= 3)
+            throw new InvalidOperationException("This quiz will not have enough questions if this quiz is deleted.");
+        
         _questionRepository.Delete(questionId);
-        //_questionRepository.ReindexQuestionNumbers(existingQuestion.QuizId);
     }
 
-    public void Update(QuestionInfo questionInfo)
+    public void Edit(QuestionInfo questionInfo)
     {
-        var question = _questionRepository.GetById(questionInfo.Id);
+        var existingQuestion = _questionRepository.GetById(questionInfo.Id);
+        existingQuestion.Text = questionInfo.Text;
+        existingQuestion.QuestionIndex = questionInfo.QuestionIndex;
         
-        // Check if the question number has changed
-        var existingQuestion = _questionRepository.GetById(question.Id);
-        if (existingQuestion != null && existingQuestion.QuestionIndex != question.QuestionIndex)
-        {
-            _questionRepository.Upsert(question);
-            _questionRepository.ReindexQuestionNumbers(existingQuestion.QuizId);
-        }
-        else
-        {
-            _questionRepository.Upsert(question);
-        }
+        _questionRepository.Upsert(existingQuestion);
         
-        _questionRepository.Upsert(question);
+        if (questionInfo.QuestionIndex != existingQuestion.QuestionIndex)
+            _questionRepository.ReindexQuestionNumbers(existingQuestion.Id);
     }
-    
-    
 }

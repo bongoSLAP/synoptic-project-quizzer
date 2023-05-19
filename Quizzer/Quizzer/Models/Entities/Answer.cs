@@ -15,7 +15,7 @@ public class Answer : IdBase
     public int AnswerIndex { get; set; } 
     [Required(ErrorMessage = "IsCorrect field is required.")]
     public Guid QuestionId { get; set; } = Guid.Empty;
-    public virtual Question? Question { get; set; }
+    public virtual Question Question { get; set; } = new Question();
 
     public AnswerInfo Map()
     {

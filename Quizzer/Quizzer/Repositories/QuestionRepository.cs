@@ -61,7 +61,7 @@ public class QuestionRepository : IQuestionRepository
         var questions = _db.Question.Where(q => q.QuizId == quizId).OrderBy(q => q.QuestionIndex).ToList();
         for (var i = 0; i < questions.Count; i++)
         {
-            questions[i].QuestionIndex = i + 1;
+            questions[i].QuestionIndex = i ;
         }
 
         _db.SaveChanges();

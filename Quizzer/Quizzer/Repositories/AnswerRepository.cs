@@ -42,10 +42,10 @@ public class AnswerRepository : IAnswerRepository
 
     public void Upsert(Answer answer)
     {
-        var existingQuestion = _db.Answer.Find(answer.Id);
-        if (existingQuestion != null)
+        var existingAnswer = _db.Answer.Find(answer.Id);
+        if (existingAnswer != null)
         {
-            _db.Entry(existingQuestion).CurrentValues.SetValues(answer);
+            _db.Entry(existingAnswer).CurrentValues.SetValues(answer);
             _db.SaveChanges();
         }
         else

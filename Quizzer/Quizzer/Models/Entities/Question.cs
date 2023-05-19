@@ -24,7 +24,7 @@ public class Question : IdBase
             Id = Id,
             Text = Text,
             QuestionIndex = QuestionIndex,
-            Answers = Answers?.Select(a => a.Map()).ToList()
+            Answers = Answers.Select(a => a.Map()).ToList()
         };
     }
 }
