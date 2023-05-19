@@ -14,6 +14,21 @@ public class QuizRepository : IQuizRepository
         _db = db;
     }
     
+    public Quiz? GetByQuestionId(Guid id)
+    {
+        return _db.Quiz.FirstOrDefault(qz => qz.Questions != null && qz.Questions.Any(q => q.Id == id));
+    }
+
+    public Quiz GetById(Guid id)
+    {
+        var quiz = _db.Quiz.Find(id);
+
+        if (quiz == null)
+            throw new InvalidOperationException("Quiz does not exist.");
+
+        return quiz;
+    }
+    
     public IEnumerable<Quiz> List()
     {
         return _db.Quiz

@@ -67,7 +67,7 @@ public class QuizControllerTest
     public void ListAll_UnauthorizedUser_ReturnsUnauthorizedResult()
     {
         // Arrange
-        _userRepositoryMock.Setup(repo => repo.GetByClaim(It.IsAny<ClaimsPrincipal>())).Returns((User)null);
+        _userRepositoryMock.Setup(repo => repo.GetByClaim(It.IsAny<ClaimsPrincipal>())).Returns((User)null!);
 
         // Act
         var result = _controller.ListAll();

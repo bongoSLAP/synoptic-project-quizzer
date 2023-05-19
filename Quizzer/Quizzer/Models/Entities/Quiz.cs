@@ -12,15 +12,16 @@ public class Quiz : IdBase
     public string Title { get; set; } = string.Empty;
     [Column(TypeName = "nvarchar(255)")]
     public string? Description { get; set; }
-    public virtual ICollection<Question>? Questions { get; set; }
+    public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
 
     public QuizInfo Map()
     {
         return new QuizInfo()
         {
+            Id = Id,
             Title = Title,
             Description = Description,
-            Questions = Questions?.Select(q => q.Map()).ToList()
+            Questions = Questions.Select(q => q.Map()).ToList()
         };
     }
 }

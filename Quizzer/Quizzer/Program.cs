@@ -14,9 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<ILoginHandler, LoginHandler>();
 builder.Services.AddTransient<IQuizHandler, QuizHandler>();
+builder.Services.AddTransient<IQuestionHandler, QuestionHandler>();
+builder.Services.AddTransient<IAnswerHandler, AnswerHandler>();
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IQuizRepository, QuizRepository>();
+builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
+builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
 
 builder.Services.AddSingleton<ScryptEncoder, ScryptEncoder>();
 builder.Services.AddSingleton<IScryptEncoder, ScryptEncoderWrapper>();

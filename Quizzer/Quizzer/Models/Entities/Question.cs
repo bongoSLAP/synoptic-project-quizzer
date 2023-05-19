@@ -14,16 +14,17 @@ public class Question : IdBase
     [Required(ErrorMessage = "Answer Index field is required.")]
     public int QuestionIndex { get; set; }
     public Guid QuizId { get; set; } = Guid.Empty;
-    public virtual Quiz? Quiz { get; set; }
-    public virtual ICollection<Answer>? Answers { get; set; }
+    public virtual Quiz Quiz { get; set; } = new Quiz();
+    public virtual ICollection<Answer> Answers { get; set; } = new List<Answer>();
 
     public QuestionInfo Map()
     {
         return new QuestionInfo()
         {
+            Id = Id,
             Text = Text,
             QuestionIndex = QuestionIndex,
-            Answers = Answers?.Select(a => a.Map()).ToList()
+            Answers = Answers.Select(a => a.Map()).ToList()
         };
     }
 }
