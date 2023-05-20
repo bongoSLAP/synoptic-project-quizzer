@@ -9,7 +9,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'quizzes', component: QuizListComponent },
     { path: 'quiz/:quizId', component: QuizViewComponent },
-    { path: 'edit-quiz/:id', component: QuizEditComponent },
+    { path: 'edit/:quizId/:questionId', component: QuizEditComponent },
 ];
 
 @NgModule({

@@ -9,7 +9,18 @@
 }
 
 .question {
-    margin-bottom: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: initial;
+    transform: initial;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.question:hover {
+    background-color: #f2f2f2;
+    transform: scale(1.05);
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .answer {
@@ -23,5 +34,14 @@ button {
     border-radius: 4px;
     padding: 8px 16px;
     cursor: pointer;
+}
+
+.back-button {
     float: left;
+}
+
+.edit-button {
+    margin-top: 10px;
+    margin-right: 10px;
+    float: right
 }

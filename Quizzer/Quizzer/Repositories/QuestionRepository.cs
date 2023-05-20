@@ -1,4 +1,5 @@
-﻿using Quizzer.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Quizzer.Data;
 using Quizzer.Handlers;
 using Quizzer.Interfaces;
 using Quizzer.Models.Entities;
@@ -16,7 +17,7 @@ public class QuestionRepository : IQuestionRepository
 
     public Question GetById(Guid id)
     {
-        var question = _db.Question.Find(id);
+        var question = _db.Question.Include(q => q.Answers).FirstOrDefault(q => q.Id == id);
         if (question == null) 
             throw new InvalidOperationException("Question does not exist.");
 

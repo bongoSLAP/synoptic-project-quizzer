@@ -27,6 +27,7 @@ builder.Services.AddTransient<IQuizRepository, QuizRepository>();
 builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
 builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
 
+builder.Services.AddTransient<IValidator<QuestionInfo>, QuestionInfoValidator>();
 builder.Services.AddTransient<IValidator<AnswerInfo>, AnswerInfoValidator>();
 
 builder.Services.AddSingleton<ScryptEncoder, ScryptEncoder>();

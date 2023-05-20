@@ -1,1 +1,14 @@
-<p>quiz-edit works!</p>
+<div class="question-container">
+    <button class="back-button" (click)="Back()" >Back</button>
+    <h3>{{ question.questionIndex + 1 }}. {{ question.text }}</h3>
+    <div *ngFor="let answer of question.answers; let i = index">
+        <p class="answer">
+            <span style="font-weight:bold">{{ indexService.mapToAlphabet(answer.answerIndex)}}. </span>
+            <input type="text" [(ngModel)]="answer.text" />
+            <button class="control save" (click)="saveAnswerChanges(answer)">💾</button>
+            <button class="control delete" (click)="deleteAnswer(answer.id)">❌</button>
+        </p>
+    </div>
+    <button class="control add" (click)="addAnswerFields()">➕</button>
+    <p>{{ outcome }}</p>
+</div>

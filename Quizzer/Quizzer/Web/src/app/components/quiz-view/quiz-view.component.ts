@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionInfo } from 'src/app/models/question-info.model';
 import { Quiz } from 'src/app/models/quiz.model';
 import { Role } from 'src/app/models/role.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { IndexService } from 'src/app/services/index.service';
 
 @Component({
     selector: 'app-quiz-view',
@@ -13,7 +15,8 @@ export class QuizViewComponent implements OnInit {
     quiz: Quiz;
     role: Role | null;
 
-    constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
+    constructor(private route: ActivatedRoute, private router: Router, 
+        private authService: AuthService, private indexService: IndexService) { }
 
     ngOnInit(): void {
         this.role = this.authService.getUserRole(); 
@@ -31,23 +34,18 @@ export class QuizViewComponent implements OnInit {
             });
         }
 
-        this.sortByIndexes();
-    }
+        this.quiz.questions = this.indexService.sortQuestionsByIndexes(this.quiz.questions);
 
-    sortByIndexes(): void {
-        this.quiz.questions.sort((a, b) => a.questionIndex - b.questionIndex)
         this.quiz.questions.forEach(question => {
-            question.answers.sort((a, b) => a.answerIndex - b.answerIndex);
+            question.answers = this.indexService.sortAnswersByIndexes(question.answers);
         });
-    }
-
-    mapToAlphabet(index: number): string {
-        const alphabet = 'ABCDE';
-        const charIndex = index;
-        return alphabet.charAt(charIndex);
     }
 
     Back(): void {
         this.router.navigate(['/quizzes']);
+    }
+
+    Edit(question: QuestionInfo): void {
+        this.router.navigate(['/edit', this.quiz.id, question.id], { state: { question, quizId: this.quiz.id } });
     }
 }
