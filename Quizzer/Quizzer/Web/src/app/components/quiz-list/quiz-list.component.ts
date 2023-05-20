@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Quiz } from 'src/app/models/quiz.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { QuizService } from 'src/app/services/quiz.service';
 export class QuizListComponent implements OnInit {
     quizzes: Quiz[];
 
-    constructor(private quizService: QuizService, private router: Router) { }
+    constructor(private quizService: QuizService, private router: Router, private authService: AuthService) { }
 
     ngOnInit(): void {
         this.fetchQuizList();
@@ -31,5 +32,9 @@ export class QuizListComponent implements OnInit {
 
     navigateToQuizView(quiz: Quiz): void {
         this.router.navigate(['/quiz/', quiz.id], { state: { quiz }});
+    }
+
+    logout(): void {
+        this.authService.logout();
     }
 }
