@@ -1,1 +1,17 @@
-<p>quiz-view works!</p>
+<div class="quiz-view-container">
+    <div *ngIf="quiz">
+        <div class="quiz-header">
+            <h2>{{ quiz.title }}</h2>
+            <p>{{ quiz.description }}</p>
+            <button (click)="Back()" >Back</button>
+        </div>
+        <div class="question" *ngFor="let question of quiz.questions">
+            <h3>{{ question.questionIndex + 1 }}. {{ question.text }}</h3>
+            <ng-container *ngIf="role == 'View' || role == 'Edit'">
+                <div *ngFor="let answer of question.answers">
+                    <p class="answer"><span style="font-weight:bold">{{ mapToAlphabet(answer.answerIndex)}}. </span>{{ answer.text }}</p>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

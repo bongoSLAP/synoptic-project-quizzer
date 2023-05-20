@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenExpirationService } from './services/token-expiration-service.service';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'Quizzer';
+
+    constructor(private tokenExpirationService: TokenExpirationService) {}
+
+    ngOnInit(): void {
+        this.tokenExpirationService.checkTokenExpiration();
+    }
 }

@@ -8,7 +8,7 @@ import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'quizzes', component: QuizListComponent },
-    { path: 'quiz/:id', component: QuizViewComponent },
+    { path: 'quiz/:quizId', component: QuizViewComponent },
     { path: 'edit-quiz/:id', component: QuizEditComponent },
 ];
 

@@ -1,5 +1,5 @@
 export class UserInfo {
-    public Username: string;
-    public FirstName: string;
-    public LastName: string;
+    public username: string;
+    public firstName: string;
+    public lastName: string;
 }

@@ -27,17 +27,23 @@ export class LoginComponent implements OnInit {
         console.log(data)
     	this.authService.login(data)
     	.subscribe(
-            (result) => {
-              console.log('token: ', result);
-              this.outcome = '';
-              localStorage.setItem('UserToken', result);
-              this.router.navigate(['/quizzes']); // Replace '/dashboard' with your desired route
+                (result) => {
+                    console.log('token: ', result);
+                    this.outcome = '';
 
-            },
-            (error) => {
-                console.log(error);
-                this.outcome = 'Username or password is unrecognised.';
-            }
+                    if (this.authService.isTokenExpired(result)) {
+                        this.outcome = 'Something went wrong. Please try again.';
+                        return;
+                    }
+
+                    localStorage.setItem('UserToken', result);
+                    this.router.navigate(['/quizzes']);
+
+                },
+                (error) => {
+                    console.log(error);
+                    this.outcome = 'Username or password is unrecognised.';
+                }
     	);   
     }
 }

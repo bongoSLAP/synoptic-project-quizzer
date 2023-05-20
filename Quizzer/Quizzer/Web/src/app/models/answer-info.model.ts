@@ -1,5 +1,5 @@
 export class AnswerInfo {
-    public Id: string;
-    public Text: string;
-    public AnswerIndex: number;
+    public id: string;
+    public text: string;
+    public answerIndex: number;
 }

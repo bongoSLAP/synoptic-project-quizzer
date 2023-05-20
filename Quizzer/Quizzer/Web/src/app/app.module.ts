@@ -9,6 +9,7 @@ import { QuizListComponent } from './components/quiz-list/quiz-list.component';
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 import { QuizEditComponent } from './components/quiz-edit/quiz-edit.component';
 import { FormsModule } from '@angular/forms';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -23,9 +24,17 @@ import { FormsModule } from '@angular/forms';
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => {
+                    return localStorage.getItem('UserToken');
+                },
+                allowedDomains: ['https://localhost:7173/Login'],
+            }
+        })
     ],
-    providers: [],
+    providers: [JwtHelperService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

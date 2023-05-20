@@ -1,0 +1,5 @@
+<div class="quiz-grid">
+    <div class="quiz-card" (click)="navigateToQuizView(quiz)" *ngFor="let quiz of quizzes">
+        <h3>{{ quiz.title }}</h3>
+    </div>
+</div>

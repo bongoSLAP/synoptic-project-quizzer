@@ -1,0 +1,27 @@
+.quiz-view-container {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.quiz-header {
+    margin-top: -20px;
+    margin-bottom: 100px;
+}
+
+.question {
+    margin-bottom: 50px;
+}
+
+.answer {
+    margin-left: 20px;
+}
+
+button {
+    background-color: #3c00ff;;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    float: left;
+}
