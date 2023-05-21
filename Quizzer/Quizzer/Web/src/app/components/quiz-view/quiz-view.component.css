@@ -40,8 +40,14 @@ button {
     float: left;
 }
 
+.add-button {
+    float: right;
+    margin-right: 20px;
+}
+
 .edit-button {
     margin-top: 10px;
     margin-right: 10px;
     float: right
 }
+

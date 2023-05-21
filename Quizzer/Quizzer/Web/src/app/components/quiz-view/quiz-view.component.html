@@ -3,10 +3,12 @@
         <div class="quiz-header">
             <h2>{{ quiz.title }}</h2>
             <p>{{ quiz.description }}</p>
-            <button class="back-button" (click)="Back()" >Back</button>
+            <button class="back-button" (click)="back()">Back</button>
+            <button class="add-button" (click)="add()">Add Question</button>
         </div>
         <div class="question" *ngFor="let question of quiz.questions">
-            <button class="edit-button" (click)="Edit(question)" *ngIf="role === 'Edit'">Edit</button>
+            <button class="edit-button" (click)="Delete(question)" *ngIf="role === 'Edit'">Delete</button>
+            <button class="edit-button" (click)="edit(question)" *ngIf="role === 'Edit'">Edit</button>
             <h3>{{ question.questionIndex + 1 }}. {{ question.text }}</h3>
             <ng-container *ngIf="role === 'View' || role == 'Edit'">
                 <div *ngFor="let answer of question.answers">

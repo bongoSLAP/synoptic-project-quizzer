@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { QuizListComponent } from './components/quiz-list/quiz-list.component';
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
-import { QuizEditComponent } from './components/quiz-edit/quiz-edit.component';
+import { QuestionEditComponent } from './components/question-edit/question-edit.component';
 import { FormsModule } from '@angular/forms';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { QuestionAddComponent } from './components/question-add/question-add.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
         LoginComponent,
         QuizListComponent,
         QuizViewComponent,
-        QuizEditComponent,
+        QuestionEditComponent,
+        QuestionAddComponent,
     ],
     imports: [
         BrowserModule,

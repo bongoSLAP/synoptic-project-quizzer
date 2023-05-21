@@ -9,11 +9,11 @@ import { AnswerInfo } from 'src/app/models/answer-info.model';
 import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
-    selector: 'app-quiz-edit',
-    templateUrl: './quiz-edit.component.html',
-    styleUrls: ['./quiz-edit.component.css']
+    selector: 'app-question-edit',
+    templateUrl: './question-edit.component.html',
+    styleUrls: ['./question-edit.component.css']
 })
-export class QuizEditComponent implements OnInit {
+export class QuestionEditComponent implements OnInit {
     question: QuestionInfo;
     quizId: string;
     outcome: string;
@@ -53,7 +53,7 @@ export class QuizEditComponent implements OnInit {
     }
 
     saveAnswerChanges(answer: AnswerInfo): void {
-        if (answer.id) {
+        if (this.isAnswerAlreadyExist(answer)) {
             this.answerService.edit(answer).subscribe(
                 () => {
                     this.outcome = `Answer successfully saved at ${new Date().toLocaleString()}.`
@@ -76,13 +76,11 @@ export class QuizEditComponent implements OnInit {
         }
     }
 
-    deleteAnswer(answerId: string): void {
-        this.answerService.delete(answerId).subscribe(
+    saveQuestionChanges(question: QuestionInfo): void {
+        this.questionService.edit(question).subscribe(
             () => {
-                this.outcome = `Answer successfully deleted at ${new Date().toLocaleString()}.`;
+                this.outcome = `Question successfully saved at ${new Date().toLocaleString()}.`
                 this.updateQuizList()
-                let index = this.question.answers.findIndex(answer => answer.id === answerId);
-                this.question.answers.splice(index, 1);
             },
             (response: any) => {
                 this.outcome = `Something went wrong: ${this.readResponse(response)}`;
@@ -90,7 +88,28 @@ export class QuizEditComponent implements OnInit {
         );
     }
 
-    addAnswerFields(): void {
+    deleteAnswer(answer: AnswerInfo): void {
+        const confirmed = window.confirm('Are you sure you want to delete this answer?');
+        if (confirmed) {
+            if (this.isAnswerAlreadyExist(answer)) {
+                this.answerService.delete(answer.id as string).subscribe(
+                    () => {
+                        this.outcome = `Answer successfully deleted at ${new Date().toLocaleString()}.`;
+                        this.updateQuizList();
+                        this.deleteAnswerField(answer.id as string);
+                    },
+                    (response: any) => {
+                        this.outcome = `Something went wrong: ${this.readResponse(response)}`;
+                    }
+                );
+            } 
+            else {
+                this.deleteAnswerField(answer.id as string);
+            }
+        }
+    }
+
+    addAnswerField(): void {
         const newAnswer: AnswerInfo = {
             answerIndex: this.question.answers.length, 
             text: '' 
@@ -99,8 +118,13 @@ export class QuizEditComponent implements OnInit {
         this.question.answers.push(newAnswer);
     }
 
-    isAnswerNew(answer: AnswerInfo): boolean {
-        return !answer.id;
+    deleteAnswerField(answerId: string): void {
+        const index = this.question.answers.findIndex(answer => answer.id === answerId);
+        this.question.answers.splice(index, 1);
+    }
+
+    isAnswerAlreadyExist(answer: AnswerInfo): boolean {
+        return !!answer.id;
     }
 
     readResponse(response: any): string {
@@ -118,7 +142,6 @@ export class QuizEditComponent implements OnInit {
                 const quiz = quizzes.find((quiz: Quiz) => quiz.id === this.quizId);
                 this.question = quiz.questions.find((question: QuestionInfo) => question.id === this.question.id);
                 this.question.answers = this.indexService.sortAnswersByIndexes(this.question.answers);
-                console.log(this.question);
             },
             (error) => {
                 console.log(error);
@@ -126,7 +149,7 @@ export class QuizEditComponent implements OnInit {
         );
     }
 
-    Back(): void {
+    back(): void {
         this.router.navigate([`/quiz/${this.quizId}`]);
     }
 }

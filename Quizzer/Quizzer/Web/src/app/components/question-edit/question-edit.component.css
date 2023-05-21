@@ -22,11 +22,19 @@ input {
 .control {
     font-size: 14px;
     padding: 5px 10px;
-    margin-left: 10px;
     border-radius: 5px;
     border: none;
     transform: initial;
     transition: background-color 0.3s, transform 0.3s;
+}
+
+.save, .delete {
+    margin-left: 10px;
+}
+
+.add {
+    font-size: 20px;
+    margin-top: 10px;
 }
 
 .back-button {
@@ -45,11 +53,7 @@ button:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
   
-.add {
-    font-size: 20px;
-    margin-top: 10px;
-}
-  
+
 .outcome {
     margin-top: 20px;
 }

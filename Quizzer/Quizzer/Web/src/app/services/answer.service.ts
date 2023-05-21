@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AnswerInfo } from '../models/answer-info.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AnswerService {
 

@@ -21,7 +21,7 @@ public class QuizRepository : IQuizRepository
 
     public Quiz GetById(Guid id)
     {
-        var quiz = _db.Quiz.Find(id);
+        var quiz = _db.Quiz.Include(qz => qz.Questions).FirstOrDefault(qz => qz.Id == id);
 
         if (quiz == null)
             throw new InvalidOperationException("Quiz does not exist.");
