@@ -4,7 +4,7 @@
             <h2>{{ quiz.title }}</h2>
             <p>{{ quiz.description }}</p>
             <button class="back-button" (click)="back()">Back</button>
-            <button class="add-button" (click)="add()">Add Question</button>
+            <button class="add-button" (click)="add()" *ngIf="role === 'Edit'">Add Question</button>
         </div>
         <div class="question" *ngFor="let question of quiz.questions">
             <button class="edit-button" (click)="Delete(question)" *ngIf="role === 'Edit'">Delete</button>

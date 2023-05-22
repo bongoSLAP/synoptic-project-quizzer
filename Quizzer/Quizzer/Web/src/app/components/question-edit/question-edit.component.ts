@@ -56,7 +56,7 @@ export class QuestionEditComponent implements OnInit {
         if (this.isAnswerAlreadyExist(answer)) {
             this.answerService.edit(answer).subscribe(
                 () => {
-                    this.outcome = `Answer successfully saved at ${new Date().toLocaleString()}.`
+                    this.outcome = 'Answer successfully saved.'
                     this.updateQuizList()
                 },
                 (response: any) => {
@@ -66,7 +66,7 @@ export class QuestionEditComponent implements OnInit {
         } else {
             this.answerService.add({ answerInfo: answer, questionId: this.question.id }).subscribe(
                 () => {
-                    this.outcome = `New answer successfully added at ${new Date().toLocaleString()}.`;
+                    this.outcome = 'New answer successfully added.';
                     this.updateQuizList()
                 },
                 (response: any) => {
@@ -79,7 +79,7 @@ export class QuestionEditComponent implements OnInit {
     saveQuestionChanges(question: QuestionInfo): void {
         this.questionService.edit(question).subscribe(
             () => {
-                this.outcome = `Question successfully saved at ${new Date().toLocaleString()}.`
+                this.outcome = 'Question successfully saved.'
                 this.updateQuizList()
             },
             (response: any) => {
@@ -94,7 +94,7 @@ export class QuestionEditComponent implements OnInit {
             if (this.isAnswerAlreadyExist(answer)) {
                 this.answerService.delete(answer.id as string).subscribe(
                     () => {
-                        this.outcome = `Answer successfully deleted at ${new Date().toLocaleString()}.`;
+                        this.outcome = 'Answer successfully deleted.';
                         this.updateQuizList();
                         this.deleteAnswerField(answer.id as string);
                     },
