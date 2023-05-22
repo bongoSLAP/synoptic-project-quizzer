@@ -1,0 +1,18 @@
+<div class="question-container">
+    <button class="back-button" (click)="back()" >Back</button>
+    
+    <h3>{{ question.questionIndex + 1 }}. 
+        <input type="text" [(ngModel)]="question.text" />
+        <button class="control save" (click)="saveQuestionChanges(question)">💾</button>
+    </h3>
+    <div *ngFor="let answer of question.answers; let i = index">
+        <p class="answer">
+            <span style="font-weight:bold">{{ indexService.mapToAlphabet(answer.answerIndex)}}. </span>
+            <input type="text" [(ngModel)]="answer.text" />
+            <button class="control save" (click)="saveAnswerChanges(answer)">💾</button>
+            <button class="control delete" (click)="deleteAnswer(answer)">❌</button>
+        </p>
+    </div>
+    <button class="control add" (click)="addAnswerField()">➕</button>
+    <p>{{ outcome }}</p>
+</div>

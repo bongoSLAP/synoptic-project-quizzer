@@ -13,6 +13,8 @@ using Quizzer.Validators;
 using Quizzer.Wrappers;
 using Scrypt;
 
+var policy = "policyName";
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<ILoginHandler, LoginHandler>();
@@ -25,10 +27,21 @@ builder.Services.AddTransient<IQuizRepository, QuizRepository>();
 builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
 builder.Services.AddTransient<IAnswerRepository, AnswerRepository>();
 
+builder.Services.AddTransient<IValidator<QuestionInfo>, QuestionInfoValidator>();
 builder.Services.AddTransient<IValidator<AnswerInfo>, AnswerInfoValidator>();
 
 builder.Services.AddSingleton<ScryptEncoder, ScryptEncoder>();
 builder.Services.AddSingleton<IScryptEncoder, ScryptEncoderWrapper>();
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(name: policy, policyBuilder =>
+    {
+        policyBuilder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddControllers();         
     /*.AddJsonOptions(jo =>
@@ -73,6 +86,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors(policy);
 
 app.UseAuthentication();
 

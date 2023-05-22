@@ -1,0 +1,16 @@
+<div class="question-add-container">
+    <button class="back-button" (click)="back()" >Back</button>
+    <h3> 
+        <input class="question-text" type="text" placeholder="Question text" [(ngModel)]="question.text" />
+    </h3>
+    <div *ngFor="let answer of question.answers; let i = index">
+        <p class="answer">
+            <span style="font-weight:bold">{{ indexService.mapToAlphabet(answer.answerIndex)}}. </span>
+            <input type="text" placeholder="Answer text" [(ngModel)]="answer.text" />
+            <button class="control delete" (click)="deleteAnswerField(answer)" *ngIf="question.answers.length > 1">❌</button>
+        </p>
+    </div>
+    <button class="control add" (click)="addAnswerField()">➕</button>
+    <button class="save-button" (click)="addQuestion()">Save Question</button>
+    <p>{{ outcome }}</p>
+</div>

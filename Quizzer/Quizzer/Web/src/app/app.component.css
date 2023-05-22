@@ -1,0 +1,9 @@
+.header-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.header {
+    text-align: center;
+}

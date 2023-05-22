@@ -1,0 +1,10 @@
+<div class="quiz-grid-container-outer">
+    <div class="quiz-grid-container-inner">
+        <div class="quiz-card" (click)="navigateToQuizView(quiz)" *ngFor="let quiz of quizzes">
+            <h3>{{ quiz.title }}</h3>
+        </div>
+    </div>
+    <button (click)="logout()">Log Out</button>
+</div>
+
+

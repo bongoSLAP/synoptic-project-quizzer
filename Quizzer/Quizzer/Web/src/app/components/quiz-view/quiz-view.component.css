@@ -1,0 +1,53 @@
+.quiz-view-container {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.quiz-header {
+    margin-top: -20px;
+    margin-bottom: 100px;
+}
+
+.question {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: initial;
+    transform: initial;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.question:hover {
+    background-color: #f2f2f2;
+    transform: scale(1.05);
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.answer {
+    margin-left: 20px;
+}
+
+button {
+    background-color: #3c00ff;;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.back-button {
+    float: left;
+}
+
+.add-button {
+    float: right;
+    margin-right: 20px;
+}
+
+.edit-button {
+    margin-top: 10px;
+    margin-right: 10px;
+    float: right
+}
+

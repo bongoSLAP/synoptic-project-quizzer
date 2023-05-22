@@ -37,12 +37,15 @@ public class AnswerHandler : IAnswerHandler
     public void Delete(Guid answerId)
     {
         var answer = _answerRepository.GetById(answerId);
-        var question = _questionRepository.GetById(answer.QuestionId);
+
+        var questionId = answer.QuestionId;
+        var question = _questionRepository.GetById(questionId);
 
         if (question.Answers.Count <= 2)
             throw new InvalidOperationException("This question will not have enough answers if this answer is deleted.");
         
         _answerRepository.Delete(answerId);
+        _answerRepository.ReindexAnswerNumbers(questionId);
     }
 
     public void Edit(AnswerInfo answerInfo)

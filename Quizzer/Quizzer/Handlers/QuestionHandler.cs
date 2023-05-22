@@ -57,12 +57,15 @@ public class QuestionHandler : IQuestionHandler
     public void Delete(Guid questionId)
     {
         var question = _questionRepository.GetById(questionId);
-        var quiz = _quizRepository.GetById(question.QuizId);
 
-        if (quiz.Questions.Count >= 3)
+        var quizId = question.QuizId;
+        var quiz = _quizRepository.GetById(quizId);
+
+        if (quiz.Questions.Count <= 3)
             throw new InvalidOperationException("This quiz will not have enough questions if this quiz is deleted.");
         
         _questionRepository.Delete(questionId);
+        _questionRepository.ReindexQuestionNumbers(quizId);
     }
 
     public void Edit(QuestionInfo questionInfo)
